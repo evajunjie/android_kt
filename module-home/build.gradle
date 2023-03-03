@@ -1,0 +1,13 @@
+apply from: '../base_module.gradle'
+
+android {
+   // resourcePrefix "home_"
+
+    namespace 'com.evajj.module_home'
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.4.+'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+}
