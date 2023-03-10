@@ -11,8 +11,7 @@ import dagger.hilt.android.HiltAndroidApp
  * Time:下午6:32
  * Description:
  **/
-@HiltAndroidApp
-open class HomeApp : BaseApplication() {
+class HomeApp : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
     }

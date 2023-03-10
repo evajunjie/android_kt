@@ -1,6 +1,5 @@
 package com.evajj.ktbase.event
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.LifecycleOwner
 
 /**

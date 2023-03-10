@@ -55,8 +55,13 @@ android {
             }
             java {
                 //排除debug文件夹下的所有文件
+                srcDirs = [
+                        'src/main/java'
+                ]
                 exclude 'debug/**'
+                exclude 'src/main/java/com/evajj/module_home/app/HomeApp.kt'
             }
+
         }
     }
 
@@ -64,16 +69,23 @@ android {
         // 对应 ALPHA 版本
         debug {
             buildConfigField "String", "VERSION_TYPE", "\"${ProjectBuildConfig.Version.ALPHA}\""
+            buildConfigField "String", "VERSION_CODE", "\"${ProjectBuildConfig.versionCode}\""
+            buildConfigField "String", "VERSION_NAME", "\"${ProjectBuildConfig.versionName}\""
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         beta {
             buildConfigField "String", "VERSION_TYPE", "\"${ProjectBuildConfig.Version.BETA}\""
+            buildConfigField "String", "VERSION_CODE", "\"${ProjectBuildConfig.versionCode}\""
+            buildConfigField "String", "VERSION_NAME", "\"${ProjectBuildConfig.versionName}\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
             buildConfigField "String", "VERSION_TYPE", "\"${ProjectBuildConfig.Version.RELEASE}\""
+            buildConfigField "String", "VERSION_CODE", "\"${ProjectBuildConfig.versionCode}\""
+            buildConfigField "String", "VERSION_NAME", "\"${ProjectBuildConfig.versionName}\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

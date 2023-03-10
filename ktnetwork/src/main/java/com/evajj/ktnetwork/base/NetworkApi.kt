@@ -8,8 +8,10 @@ import com.evajj.ktnetwork.environment.EnvironmentActivity
 import com.evajj.ktnetwork.environment.IEnvironment
 import com.evajj.ktnetwork.util.HttpsUtils
 import com.evajj.ktnetwork.weaknetwork.WeakNetworkInterceptor
+import com.evajj.ktnetwork.weaknetwork.WeakNetworkManager
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -48,12 +50,12 @@ abstract class NetworkApi : IEnvironment {
             EnvironmentActivity.isOfficialEnvironment(networkRequiredInfo.getApplicationContext())
         val networkType: Int =
             EnvironmentActivity.getNetWorkType(networkRequiredInfo.getApplicationContext())
-        //WeakNetworkManager.get().setType(networkType)
+        WeakNetworkManager.setType(networkType)
     }
 
-    protected fun getRetrofit(service: Class<*>): Retrofit? {
-        if (retrofitHashMap.get(mBaseUrl + service.name) != null) {
-            return NetworkApi.retrofitHashMap.get(mBaseUrl + service.name)
+    protected fun getRetrofit(service: Class<*>): Retrofit {
+        if (retrofitHashMap.containsKey(mBaseUrl + service.name) ) {
+            return retrofitHashMap[mBaseUrl + service.name]!!
         }
         val retrofitBuilder = Retrofit.Builder()
         retrofitBuilder.baseUrl(mBaseUrl)
@@ -61,7 +63,7 @@ abstract class NetworkApi : IEnvironment {
         retrofitBuilder.addConverterFactory(GsonConverterFactory.create())
         //retrofitBuilder.addCallAdapterFactory(Flow.create())
         val retrofit = retrofitBuilder.build()
-        NetworkApi.retrofitHashMap.put(mBaseUrl + service.name, retrofit)
+        retrofitHashMap[mBaseUrl + service.name] = retrofit
         return retrofit
     }
 
@@ -77,7 +79,7 @@ abstract class NetworkApi : IEnvironment {
             }
 
             val cacheSize = 100 * 1024 * 1024 // 10MB
-            // okHttpClientBuilder.cache(new Cache(iNetworkRequiredInfo.getApplicationContext().getCacheDir(), cacheSize));
+            //cache( Cache(iNetworkRequiredInfo.getApplicationContext().getCacheDir(), cacheSize));
             val sslParams: HttpsUtils.SSLParams = HttpsUtils.getSslSocketFactory()
             sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
             addInterceptor(WeakNetworkInterceptor())
@@ -85,7 +87,7 @@ abstract class NetworkApi : IEnvironment {
             addInterceptor(CommonResponseInterceptor())
             if (this@NetworkApi::_NetworkRequiredInfo.isInitialized && _NetworkRequiredInfo.isDebug()) {
                 val httpLoggingInterceptor = HttpLoggingInterceptor()
-                httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS)
+                httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
                 addInterceptor(httpLoggingInterceptor)
             }
         }.build()
@@ -95,19 +97,19 @@ abstract class NetworkApi : IEnvironment {
 
     abstract fun <T> T.getAppErrorHandler(): T
 
-    suspend fun <T> Flow<T>.applySchedulers(
-        requestCallback: RequestCallback<T>? = null,
-        dispatcher: CoroutineDispatcher = Dispatchers.IO,
-    ) {
-        flowOn(dispatcher)
-            .transform {
-                emit(it.getAppErrorHandler())
-            }
-            .catch {
-                requestCallback?.onError(ResponseError(handleException(it)))
-            }.collect { result ->
-                requestCallback?.onSuccess(ResponseSuccess(result))
-            }
-    }
+//    suspend fun <T> Flow<T>.applySchedulers(
+//        requestCallback: RequestCallback<T>? = null,
+//        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+//    ) {
+//        flowOn(dispatcher)
+//            .transform {
+//                emit(it.getAppErrorHandler())
+//            }
+//            .catch {
+//                requestCallback?.onError(ResponseError(handleException(it)))
+//            }.collect { result ->
+//                requestCallback?.onSuccess(ResponseSuccess(result))
+//            }
+//    }
 
 }

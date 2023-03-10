@@ -1,6 +1,7 @@
 apply from: '../base_lib.gradle'
 import com.evajj.dependences.buildsrc.*;
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 android {
 
     buildFeatures {
@@ -9,6 +10,9 @@ android {
 
     resourcePrefix "base_"
     namespace 'com.evajj.ktbase'
+    lint{
+        abortOnError false
+    }
 }
 
 dependencies {

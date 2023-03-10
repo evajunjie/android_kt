@@ -1,8 +1,10 @@
 package com.evajj.module_home.di
 
+import com.evajj.ktnetwork.custom.HomeNetWorkApi
 import com.evajj.module_home.data.source.HttpDataSource
 import com.evajj.module_home.data.source.LocalDataSource
 import com.evajj.module_home.data.source.http.HttpDataSourceImpl
+import com.evajj.module_home.data.source.http.service.HomeServiceApi
 import com.evajj.module_home.data.source.local.LocalDataSourceImpl
 import dagger.Module
 import dagger.Provides
@@ -25,6 +27,8 @@ class DataRepositoryModule {
 
     @Provides
     @Singleton
-    fun provideNetWorkSource () :HttpDataSource = HttpDataSourceImpl()
+    fun provideNetWorkSource () :HttpDataSource
+        = HttpDataSourceImpl(HomeNetWorkApi.getService(HomeServiceApi::class.java))
+
 
 }

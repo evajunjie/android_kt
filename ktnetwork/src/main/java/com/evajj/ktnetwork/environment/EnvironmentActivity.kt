@@ -24,14 +24,14 @@ class EnvironmentActivity :AppCompatActivity() {
         val NETWORK_ENVIRONMENT_PREF_KEY = "network_environment_type"
         private var sCurrentInterfaceEnvironment :String? = ""
         private var sCurrentNetWorkEnvironment  :String? = ""
-        fun getNetWorkType(application: Application):Int {
-            val prefs = PreferenceManager.getDefaultSharedPreferences(application!!)
+        fun getNetWorkType(context: Context):Int {
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context!!)
             val environment = prefs.getString(NETWORK_ENVIRONMENT_PREF_KEY, "0")
             return Integer.valueOf(environment!!)
         }
-        fun isOfficialEnvironment(application: Application): Boolean {
+        fun isOfficialEnvironment(context: Context): Boolean {
             val prefs = PreferenceManager.getDefaultSharedPreferences(
-                application!!
+                context!!
             )
             val environment = prefs.getString(INTERFACE_ENVIRONMENT_PREF_KEY, "1")
             return "1".equals(environment, ignoreCase = true)

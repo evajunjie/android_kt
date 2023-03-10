@@ -8,6 +8,7 @@ import com.evajj.ktbase.BuildConfig
 import com.evajj.ktbase.R
 import com.evajj.ktbase.util.LogUtil
 import com.tpcdroid.crash.CaocConfig
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -20,7 +21,6 @@ import kotlin.system.measureTimeMillis
  * Time:上午10:15
  * Description:
  **/
-
 open class BaseApplication : Application() {
 
     private val mLoadModuleProxy by lazy(mode = LazyThreadSafetyMode.NONE) { LoadModuleProxy() }

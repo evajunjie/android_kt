@@ -15,13 +15,11 @@ import javax.inject.Singleton
 @Singleton
 class HomeRepository  @Inject constructor(private val localDataSource :LocalDataSource,private val httpDataSource: HttpDataSource
 ):BaseModel(),LocalDataSource,HttpDataSource  {
-    override fun loadNetWorkData() {
+    override suspend fun loadNetWorkData() =
         httpDataSource.loadNetWorkData()
-
-    }
 
     override fun loadLocalData() {
-        httpDataSource.loadNetWorkData()
+        localDataSource.loadLocalData()
     }
 
 

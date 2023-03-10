@@ -1,6 +1,7 @@
 package com.evajj.ktnetwork.base
 
 import android.app.Application
+import android.content.Context
 import okhttp3.Interceptor
 
 /**
@@ -13,7 +14,7 @@ interface INetworkRequiredInfo {
     fun getAppVersionName(): String?
     fun getAppVersionCode(): String?
     fun isDebug(): Boolean
-    fun getApplicationContext(): Application
+    fun getApplicationContext(): Context
     fun getInterceptor(): Interceptor?
 
 }

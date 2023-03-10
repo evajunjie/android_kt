@@ -16,7 +16,7 @@ android {
         minSdkVersion ProjectBuildConfig.minSdkVersion
         targetSdkVersion ProjectBuildConfig.targetSdkVersion
         versionCode ProjectBuildConfig.versionCode
-        versionName ProjectBuildConfig.versionName
+        versionName "1.0"
 
         consumerProguardFiles "consumer-rules.pro"
 

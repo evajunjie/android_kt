@@ -23,6 +23,7 @@ class HomeActivity : BaseActivity<HomeActivityLayoutBinding,HomeViewModel> (){
     }
 
     override fun initData() {
+        viewModel.loadData()
     }
 
     override fun initViewObservable() {

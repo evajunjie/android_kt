@@ -1,6 +1,22 @@
-apply from: '../base_module.gradle'
+apply from: '../base_lib.gradle'
+import com.evajj.dependences.buildsrc.*;
+
 android {
-    // resourcePrefix "home_"
+
+    buildFeatures {
+        viewBinding = true
+    }
 
     namespace 'com.evajj.ktnetwork'
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation project(path: ':ktbase')
+
+    api DependencyConfig.JetPack.HiltCore
+    kapt DependencyConfig.GitHub.AutoServiceAnnotations
+    kapt DependencyConfig.JetPack.HiltApt
+    kapt DependencyConfig.JetPack.LifecycleCompilerAPT
 }

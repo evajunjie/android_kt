@@ -1,6 +1,8 @@
 package com.evajj.kotlinmvvmbase.app
 
 import android.app.Application
+import com.evajj.ktbase.BuildConfig
+import com.evajj.ktbase.app.BaseApplication
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -10,5 +12,5 @@ import dagger.hilt.android.HiltAndroidApp
  * Description:
  **/
 @HiltAndroidApp
-class App : Application() {
+class App : BaseApplication() {
 }

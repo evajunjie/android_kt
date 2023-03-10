@@ -81,6 +81,11 @@ android {
         jvmTarget = '1.8'
     }
     namespace 'com.evajj.kotlinmvvmbase'
+
+    buildFeatures {
+        dataBinding = true
+    }
+
 }
 
 dependencies {
@@ -88,10 +93,13 @@ dependencies {
 
     if (!ProjectBuildConfig.isAppMode) {
         // 有业务组件时 把这个去掉 这里只是为了使用base里的依赖库
-        implementation project(path: ':ktbase')
+        implementation project(path: ':module-home')
     } else {
         //implementation project(path: ':lib_common')
     }
+    implementation project(path: ':ktnetwork')
+    implementation project(path: ':ktbase')
+
     implementation DependencyConfig.JetPack.HiltCore
 //
     kapt DependencyConfig.GitHub.AutoServiceAnnotations

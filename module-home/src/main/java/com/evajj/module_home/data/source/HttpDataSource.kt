@@ -1,5 +1,9 @@
 package com.evajj.module_home.data.source
 
+import com.evajj.module_home.data.entity.FrontPage
+import com.evajj.module_home.data.entity.WanResponse
+import kotlinx.coroutines.flow.Flow
+
 /**
  * Author:wenjunjie
  * Date:2023/2/21
@@ -7,5 +11,6 @@ package com.evajj.module_home.data.source
  * Description:
  **/
 interface HttpDataSource {
-    fun loadNetWorkData()
+    suspend fun loadNetWorkData() : Flow<WanResponse<FrontPage>>
+
 }
