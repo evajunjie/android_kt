@@ -1,6 +1,7 @@
 package com.evajj.module_home.di
 
 import com.evajj.ktnetwork.custom.HomeNetWorkApi
+import com.evajj.module_home.data.dao.HomeDao
 import com.evajj.module_home.data.source.HttpDataSource
 import com.evajj.module_home.data.source.LocalDataSource
 import com.evajj.module_home.data.source.http.HttpDataSourceImpl
@@ -23,7 +24,7 @@ import javax.inject.Singleton
 class DataRepositoryModule {
     @Provides
     @Singleton
-    fun provideLocalSource () :LocalDataSource = LocalDataSourceImpl()
+    fun provideLocalSource (homeDao: HomeDao) :LocalDataSource = LocalDataSourceImpl(homeDao)
 
     @Provides
     @Singleton

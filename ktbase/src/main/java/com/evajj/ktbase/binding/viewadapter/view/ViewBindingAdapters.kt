@@ -26,7 +26,7 @@ val CLICK_INTERVAL: Long = 1
  * isThrottleFirst 是否开启防止过快点击
  */
 @BindingAdapter(value = ["onClickCommand", "isThrottleFirst"], requireAll = false)
-fun onClickCommand(view: View?, clickCommand: BindingCommand<Any?>, isThrottleFirst: Boolean) {
+fun onClickCommand(view: View?, clickCommand: BindingCommand<*>, isThrottleFirst: Boolean) {
     if (isThrottleFirst) {
         var result = view?.run {
             clicks().throttleFirst(

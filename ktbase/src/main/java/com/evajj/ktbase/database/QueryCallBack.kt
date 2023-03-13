@@ -1,6 +1,8 @@
-package com.evajj.ktnetwork.base
+package com.evajj.ktbase.database
 
-import com.evajj.ktbase.exception.ExceptionHandle.handleException
+
+import com.evajj.ktbase.R
+import com.evajj.ktbase.exception.ExceptionHandle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -8,37 +10,37 @@ import kotlinx.coroutines.launch
 
 /**
  * Author:wenjunjie
- * Date:2023/3/10
- * Time:上午11:21
+ * Date:2023/3/13
+ * Time:下午3:47
  * Description:
  **/
-class RequestCallback<Response> {
-    internal lateinit var request: suspend () -> Flow<Response>
+class QueryCallBack<Result> {
+    internal lateinit var query: suspend () -> Flow<Result>
 
     internal var onStart: (() -> Boolean?)? = null
 
-    internal var onResponse: (ResponseSuccess<Response>.() -> Unit)? = null
+    internal var onResult: (Result.() -> Unit)? = null
 
-    internal var onError: (ResponseError.() -> Boolean?)? = null
+    internal var onError: (Throwable.() -> Boolean?)? = null
 
     internal var onFinally: (() -> Boolean?)? = null
 
-    internal var onTransform: Response.() -> Response = {this}
+    internal var onTransform: Result.() -> Result = {this}
 
 
     fun onStart(onStart: (() -> Boolean?)?) {
         this.onStart = onStart
     }
 
-    infix fun onRequest(request: suspend () -> Flow<Response>) {
-        this.request = request
+    infix fun onQuery(query: suspend () -> Flow<Result>) {
+        this.query = query
     }
 
-    infix fun onResponse(onResponse: (ResponseSuccess<Response>.() -> Unit)?) {
-        this.onResponse = onResponse
+    infix fun onResult(onResult: (Result.() -> Unit)?) {
+        this.onResult = onResult
     }
 
-    infix fun onError(onError: (ResponseError.() -> Boolean?)?) {
+    infix fun onError(onError: (Throwable.() -> Boolean?)?) {
         this.onError = onError
     }
 
@@ -46,35 +48,35 @@ class RequestCallback<Response> {
         this.onFinally = onFinally
     }
 
-    infix fun onTransform(onTransform: Response.() -> Response){
+    infix fun onTransform(onTransform: Result.() -> Result){
         this.onTransform = onTransform
     }
 
 
     fun collect(viewModelScope: CoroutineScope) {
-
         try {
             viewModelScope.launch(context = Dispatchers.Main) {
-                request.invoke().flowOn(Dispatchers.IO)
+                query.invoke().flowOn(Dispatchers.IO)
                     .onStart {
                         onStart?.invoke()
-                    }.transform {
+                    }.
+                    transform {
                         emit(onTransform.invoke(it))
                     }.catch {
                         it.printStackTrace()
-                        onError?.invoke(ResponseError(handleException(it)))
+                        onError?.invoke(it)
                     }.onCompletion {
                         onFinally?.invoke()
                     }.collect {
-                        onResponse?.invoke(ResponseSuccess(it))
+                        onResult?.invoke(it)
                     }
-
 
             }
 
-        } catch(e: Exception)  {
+        }catch (e:Exception){
             e.printStackTrace()
-            onError?.invoke(ResponseError(e))
+            onError?.invoke(e)
         }
+
     }
 }

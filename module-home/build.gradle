@@ -1,7 +1,6 @@
 import com.evajj.dependences.buildsrc.ProjectBuildConfig
 
 apply from: '../base_module.gradle'
-
 android {
    // resourcePrefix "home_"
 

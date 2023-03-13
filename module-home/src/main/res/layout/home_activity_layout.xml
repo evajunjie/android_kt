@@ -15,6 +15,14 @@
         android:layout_height="match_parent"
         tools:context=".view.HomeActivity">
 
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="加载网络数据"
+            app:onClickCommand="@{viewModel.loadNetWork}"/>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

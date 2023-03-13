@@ -1,7 +1,7 @@
 apply from: '../base_lib.gradle'
 import com.evajj.dependences.buildsrc.*;
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.devtools.ksp'
 android {
 
     buildFeatures {

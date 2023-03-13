@@ -13,6 +13,7 @@ if (ProjectBuildConfig.isAppMode) {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'com.google.devtools.ksp'
 
 android {
     compileSdkVersion ProjectBuildConfig.compileSdkVersion
@@ -116,4 +117,6 @@ dependencies {
     kapt DependencyConfig.GitHub.AutoServiceAnnotations
     kapt DependencyConfig.JetPack.HiltApt
     kapt DependencyConfig.JetPack.LifecycleCompilerAPT
+    ksp DependencyConfig.AndroidX.RoomCompiler
+
 }

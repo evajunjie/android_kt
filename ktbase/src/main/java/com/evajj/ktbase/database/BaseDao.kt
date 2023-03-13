@@ -13,18 +13,18 @@ import kotlinx.coroutines.flow.Flow
  **/
 interface BaseDao<T> {
     @Insert
-    fun insertItem(item: T?): Flow<T?> //插入单条数据
+    fun insertItem(item: T?) //插入单条数据
 
 
     @Insert
-    fun insertItems(items: List<T?>?): Flow<List<T?>> //插入list数据
+    fun insertItems(items: List<T>?) //插入list数据
 
 
     @Delete
-    fun deleteItem(item: T?): Flow<T?> //删除item
+    fun deleteItem(item: T?): Int //删除item
 
 
     @Update
-    fun updateItem(item: T?): Flow<T?> //更新item
+    fun updateItem(item: T?): Int //更新item
 
 }

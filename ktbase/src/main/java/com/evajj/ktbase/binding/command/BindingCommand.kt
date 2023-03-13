@@ -7,18 +7,19 @@ package com.evajj.ktbase.binding.command
  * Description:
  **/
 class BindingCommand<T> {
-    private lateinit var execute: () -> Unit
-    private lateinit var consumer: (T) -> Unit
-    private lateinit var canExecute0: () -> Boolean
+    private  var execute: (() -> Unit)? = null
+    private  var consumer: (T.() -> Unit)? = null
+    private  var canExecute0: (() -> Boolean)? = null
 
     constructor(execute: () -> Unit) {
         this.execute = execute
     }
 
+
     /**
-     * @param execute 带泛型参数的命令绑定
+     * @param consumer 带泛型参数的命令绑定
      */
-    constructor(consumer: (T) -> Unit) {
+    constructor(consumer: T.() -> Unit) {
         this.consumer = consumer
     }
 
@@ -45,9 +46,7 @@ class BindingCommand<T> {
      * 执行BindingAction命令
      */
     fun execute(){
-        var canExecute = canExecute0?.run {
-            canExecute0()
-        }?:false
+        var canExecute = canExecute0?.invoke()?:true
 
         if(canExecute) execute?.let { it() }
 
@@ -59,9 +58,7 @@ class BindingCommand<T> {
      * @param parameter 泛型参数
      */
     open fun execute(parameter: T) {
-        var canExecute = canExecute0?.run {
-            canExecute0()
-        }?:false
+        var canExecute = canExecute0?.invoke()?:true
 
         if(canExecute) consumer?.let { it(parameter) }
     }
