@@ -16,6 +16,7 @@
         tools:context=".view.HomeActivity">
 
         <Button
+            android:id="@+id/btn_net"
             android:layout_width="150dp"
             android:layout_height="100dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +24,24 @@
             android:text="加载网络数据"
             app:onClickCommand="@{viewModel.loadNetWork}"/>
 
+        <Button
+            android:id="@+id/btn_local"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="加载本地数据库"
+            app:onClickCommand="@{viewModel.loadLocalData}"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toEndOf="@id/btn_net"/>
 
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="插入数据库"
+            app:onClickCommand="@{viewModel.insertLocalData}"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toEndOf="@id/btn_local"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

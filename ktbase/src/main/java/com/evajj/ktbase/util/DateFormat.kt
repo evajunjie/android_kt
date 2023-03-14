@@ -859,3 +859,8 @@ class DateNode {
     /** 显示时间  */
     var time: String? = null
 }
+
+var timeStamp: Long = 0
+    get() = System.currentTimeMillis()
+
+

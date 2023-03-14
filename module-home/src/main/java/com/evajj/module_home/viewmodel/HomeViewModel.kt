@@ -1,16 +1,19 @@
 package com.evajj.module_home.viewmodel
 
 import android.app.Application
+import androidx.lifecycle.viewModelScope
 import com.evajj.ktbase.base.BaseViewModel
 import com.evajj.ktbase.binding.command.BindingAction
 import com.evajj.ktbase.binding.command.BindingCommand
 import com.evajj.ktbase.util.LogUtil
+import com.evajj.ktbase.util.timeStamp
 import com.evajj.ktnetwork.custom.HomeNetWorkApi.getAppErrorHandler
 import com.evajj.ktnetwork.viewmode.query
 import com.evajj.ktnetwork.viewmode.request
 import com.evajj.module_home.data.entity.WanItem
 import com.evajj.module_home.model.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -90,9 +93,23 @@ class HomeViewModel @Inject constructor(application: Application ,private val ho
         }
     }
 
+    private fun insertLocalData(){
+          viewModelScope.launch {
+              homeRepository.saveLocalData(WanItem("test",timeStamp))
+          }
+        }
+
+
 
      val loadNetWork  = BindingCommand<Any>(execute = {
-         LogUtil.d("wenjj")
          loadNetWorkData()
      })
+
+    val loadLocalData  = BindingCommand<Any>(execute = {
+        loadLocalData()
+    })
+
+    val insertLocalData  = BindingCommand<Any>(execute = {
+        insertLocalData()
+    })
 }

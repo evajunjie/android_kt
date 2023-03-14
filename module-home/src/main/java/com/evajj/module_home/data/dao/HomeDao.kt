@@ -18,6 +18,7 @@ interface HomeDao :BaseDao<WanItem>{
     @Query("Select * from Wan")
     suspend fun getAllData() : List<WanItem>
 
-
+    @Insert
+    suspend fun saveData(item: WanItem?) //插入单条数据
 
 }

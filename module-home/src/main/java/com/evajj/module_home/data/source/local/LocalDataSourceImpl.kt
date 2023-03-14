@@ -18,6 +18,6 @@ class LocalDataSourceImpl @Inject constructor(private val homeDao: HomeDao) : Lo
         emit(homeDao.getAllData())
     }
     override suspend fun saveLocalData(data: WanItem) {
-        homeDao.insertItem(data)
+        homeDao.saveData(data)
     }
 }
