@@ -48,7 +48,7 @@ object DependencyConfig {
         const val Gson = "2.8.7"                            // Gson
         const val MMKV = "1.2.9"                            // 腾讯 MMKV 替代SP
         const val AutoSize = "1.2.1"                        // 屏幕适配
-        const val ARoute = "1.5.1"                          // 阿里路由
+        const val ARoute = "1.5.2"                          // 阿里路由
         const val ARouteCompiler = "1.5.1"                  // 阿里路由 APT
         const val RecyclerViewAdapter = "3.0.4"             // RecyclerViewAdapter
         const val EventBus = "3.2.0"                        // 事件总线

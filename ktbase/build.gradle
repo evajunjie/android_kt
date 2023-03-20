@@ -47,7 +47,7 @@ dependencies {
     api DependencyConfig.GitHub.Gson
     api DependencyConfig.GitHub.MMKV
    // api DependencyConfig.GitHub.AutoSize
-    //api DependencyConfig.GitHub.ARoute
+    api DependencyConfig.GitHub.ARoute
     api DependencyConfig.GitHub.RecyclerViewAdapter
     api DependencyConfig.GitHub.EventBus
     api DependencyConfig.GitHub.PermissionX
@@ -71,7 +71,7 @@ dependencies {
    // api DependencyConfig.SDK.TencentBuglyNative
    // api DependencyConfig.SDK.TencentTBSX5
 
-   // kapt DependencyConfig.GitHub.ARouteCompiler
+    kapt DependencyConfig.GitHub.ARouteCompiler
     kapt DependencyConfig.GitHub.EventBusAPT
     kapt DependencyConfig.GitHub.AutoServiceAnnotations
     kapt DependencyConfig.JetPack.HiltApt

@@ -1,0 +1,25 @@
+apply from: '../base_lib.gradle'
+import com.evajj.dependences.buildsrc.*;
+
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.devtools.ksp'
+
+android {
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    resourcePrefix "ktcommon"
+    namespace 'com.evajj.ktcommon'
+}
+
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    api project(path: ':ktbase')
+    implementation DependencyConfig.JetPack.HiltCore
+    kapt DependencyConfig.GitHub.AutoServiceAnnotations
+    kapt DependencyConfig.JetPack.HiltApt
+    kapt DependencyConfig.JetPack.LifecycleCompilerAPT
+}
