@@ -28,8 +28,14 @@ class DataRepositoryModule {
 
     @Provides
     @Singleton
-    fun provideNetWorkSource () :HttpDataSource
-        = HttpDataSourceImpl(HomeNetWorkApi.getService(HomeServiceApi::class.java))
+    fun provideNetWorkSource (homeServiceApi: HomeServiceApi) :HttpDataSource
+            = HttpDataSourceImpl(homeServiceApi)
+
+
+
+    @Provides
+    @Singleton
+    fun provideHomeServiceApi():HomeServiceApi = HomeNetWorkApi.getService(HomeServiceApi::class.java)
 
 
 }
